@@ -2,10 +2,8 @@ import express from "express";
 import Env from "dotenv";
 import bodyParser from "body-parser";
 import cors from "cors";
-
-import Json from "./helpers/response-json";
-
 import routesV1 from "./routes";
+import responseJson from "./helpers/response-json";
 
 Env.config();
 
@@ -17,11 +15,9 @@ app.use(bodyParser.json());
 app.use(cors());
 
 app.get("/", (req, res) => {
-  res.send(
-    Json(200, {
-      message: "Hello World!",
-    })
-  );
+  responseJson(res, 200, {
+    message: "Hello World!",
+  })
 });
 
 app.use("/api", routesV1);

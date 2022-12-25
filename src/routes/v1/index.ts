@@ -1,11 +1,13 @@
 import express from "express";
-import Json from "../../helpers/response-json";
+import responseJson from "../../helpers/response-json";
 import statusRouter from "./status";
 
 const router = express.Router();
 
 router.get("/", (req, res) => {
-  res.send(Json(200, { message: "Hello World!" }));
+  responseJson(res, 200, {
+    message: "Hello World!",
+  });
 });
 router.use("/status", statusRouter);
 
