@@ -5,7 +5,7 @@ import cors from "cors";
 
 import Json from "./helpers/response-json";
 
-import routesV1 from "./routes/v1";
+import routesV1 from "./routes";
 
 Env.config();
 
@@ -24,7 +24,7 @@ app.get("/", (req, res) => {
   );
 });
 
-app.use("/api/v1", routesV1);
+app.use("/api", routesV1);
 
 app.listen(port, () => {
   console.log("Server running on port 3000");
