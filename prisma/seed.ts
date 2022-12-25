@@ -17,10 +17,36 @@ const statuses = [
   },
 ];
 
+const cards = [
+  {
+    name: "Ask QA Team to test the new feature",
+    description: "The new feature is ready to be tested by QA Team",
+    statusId: 2,
+  },
+  {
+    name: "Fix the bug",
+    description: "The bug is found in the new feature",
+    statusId: 4,
+  },
+  {
+    name: "Develop CRUD for products",
+    description: "Develop CRUD for products using express and prisma",
+    statusId: 3,
+  },
+  {
+    name: "Deploy the new feature",
+    description: "Deploy the new feature to production",
+    statusId: 1,
+  },
+];
+
 const main = async () => {
   console.log(`Start seeding ...`);
-  const status = await prisma.status.createMany({
+  await prisma.status.createMany({
     data: statuses,
+  });
+  await prisma.card.createMany({
+    data: cards,
   });
   console.log(`Seeding finished.`);
 };

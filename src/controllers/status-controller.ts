@@ -1,14 +1,12 @@
-import { PrismaClient } from "@prisma/client";
 import responseJson from "../helpers/response-json";
+import prismaClient from "../helpers/prisma-client";
 
 import type { Request, Response } from "express";
-
-const prisma = new PrismaClient();
 
 export default class StatusController {
   static async get(req: Request, res: Response) {
     try {
-      const statuses = await prisma.status.findMany({
+      const statuses = await prismaClient.status.findMany({
         select: {
           id: true,
           name: true,
@@ -26,7 +24,7 @@ export default class StatusController {
 
   static async create(req: Request, res: Response) {
     try {
-      const status = await prisma.status.create({
+      const status = await prismaClient.status.create({
         data: {
           name: req.body.name,
         },
@@ -44,7 +42,7 @@ export default class StatusController {
 
   static async update(req: Request, res: Response) {
     try {
-      const find = await prisma.status.findUnique({
+      const find = await prismaClient.status.findUnique({
         where: {
           id: Number(req.params.id),
         },
@@ -54,7 +52,7 @@ export default class StatusController {
         return responseJson(res, 404, { message: "Status not found" });
       }
 
-      const status = await prisma.status.update({
+      const status = await prismaClient.status.update({
         where: {
           id: Number(req.params.id),
         },
@@ -75,7 +73,7 @@ export default class StatusController {
 
   static async delete(req: Request, res: Response) {
     try {
-      const find = await prisma.status.findUnique({
+      const find = await prismaClient.status.findUnique({
         where: {
           id: Number(req.params.id),
         },
@@ -85,7 +83,7 @@ export default class StatusController {
         return responseJson(res, 404, { message: "Status not found" });
       }
 
-      await prisma.status.delete({
+      await prismaClient.status.delete({
         where: {
           id: Number(req.params.id),
         },
